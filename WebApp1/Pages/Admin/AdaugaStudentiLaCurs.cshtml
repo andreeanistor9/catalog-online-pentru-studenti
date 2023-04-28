@@ -1,0 +1,30 @@
+﻿@page
+@model WebApp1.Pages.Admin.AdaugaStudentiLaCursModel
+@{
+	ViewData["Title"]="Adauga studentii la curs";
+}
+<form method="post">
+	<div class="row mb-3">
+		<label class="col-sm-1 col-form-label"> Punctaj:  </label><br />
+		<div class="col-sm-4">
+			<input class="form-control" asp-for="@Model.Nota.Punctaj" value=0 readonly/>
+		</div>
+	</div>
+	<div class="row mb-3">
+		<label class="col-sm-1 col-form-label"> Student:  </label><br />
+		<div class="col-sm-4">
+		
+		<select class="form-select" asp-for="@Model.Nota.StudentId" asp-items="Model.student"></select><br />
+		</div>
+	</div>
+	<div class="row mb-3">
+		<label class="col-sm-1 col-form-label"> Curs:  </label><br />
+		<div class="col-sm-4">
+		<select class="form-select" asp-for="@Model.Nota.CursId" asp-items="Model.curs"></select><br />
+		</div>
+	</div>
+	<div>
+		<input class="btn btn-primary" type="submit" value="Adauga Student"/>
+	</div>
+</form>
+

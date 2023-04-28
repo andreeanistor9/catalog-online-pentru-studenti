@@ -1,0 +1,62 @@
+﻿@page
+@using WebApp1.Models;
+@model WebApp1.Pages.Secretar.CursuriStudentiModel
+@{
+    ViewData["Title"] = "Note studenti";
+}
+<a id="printPDF" class="btn btn-primary">Download PDF</a>
+<div id="parentDiv">
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                An de studiu
+            </th>
+            <th>
+                Student
+            </th>
+            <th>
+                Curs
+            </th>
+            <th>
+                Nota
+            </th> 
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach(Nota nota in Model.Note)
+{
+            <tr>
+                 <td>
+                     @Html.DisplayFor(modelItem => nota.Curs.An)
+                 </td>     
+                 <td id="Username1">
+                     @Html.DisplayFor(modelItem => nota.Student.UserName)
+                 </td>
+                 <td id=Curs1>
+                     @Html.DisplayFor(modelItem => nota.Curs.Denumire)
+                 </td>
+                 <td id=Nota1>
+                     @Html.DisplayFor(modelItem => nota.Punctaj)
+                 </td>   
+
+            </tr>
+}
+    </tbody>
+</table>
+</div>
+
+@section scripts {
+    <script>
+        $("#printPDF").click(function() {
+            var element = document.getElementById('parentDiv');
+
+            html2pdf().from(element).set({
+                margin: [30,10,5,10],
+                pagebreak:{avoid: 'tr'},
+                jsPDF:{orientation:'landscape', unit:'pt', format:'letter', compressPDF:true}
+            }).save()
+        })
+</script>
+}

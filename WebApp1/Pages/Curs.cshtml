@@ -1,0 +1,18 @@
+﻿@page "{cursId:int}"
+@using WebApp1.Models
+@model WebApp1.Pages.CursModel
+@{
+	ViewData["Title"] = "Cursuri";
+}
+
+
+<h1>
+	<b>@Model.Curs.Denumire</b>
+</h1>
+<p>
+	Anul: @Model.Curs.An
+</p>
+<p>
+	Profesor: @Model.Curs.Profesor.UserName
+</p>
+

@@ -1,0 +1,34 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+    var inStudentRole = User.IsInRole("student");
+    var inModeratorRole = User.IsInRole("moderator");
+    var inProfesorRole = User.IsInRole("profesor");
+    var inSecretarRole = User.IsInRole("secretar");
+}
+
+
+<div class="text-center d-grid gap-3" >
+    
+    @if(inStudentRole) {
+        <p>Esti logat ca student</p>
+    }
+    @if(inModeratorRole) {
+        <p>Esti logat ca moderator</p>
+    }
+    @if(inProfesorRole) {
+        <p>Esti logat ca profesor</p>
+    }
+    @if(inSecretarRole) {
+        <p class="h6">Esti logat ca secretar</p>
+    }
+    <p class="display-4 h1">Bine ai venit!</p>
+    <p class="h4">Facultatea de Matematica si Informatica</p>
+    <img src="~/lib/poza1.jpg" alt="absolvire" style="width:100%;">
+    
+        <p class="h5">Facultatea noastră este cea mai bună dintre cele de profil din țară, fiind clasificată în categoria A în cele doua domenii principale de studiu, Matematică și Informatică. Absolvenții noștri nu au nici o problemă în a-și găsi locuri de muncă (unii lucrează încă din timpul studiilor) în informatică, industrie, cercetare aplicată, mediul bancar și de asigurări, învățământ de toate gradele; cei care doresc pot continua studiile în școlile doctorale din țară sau din străinătate, unde sunt acceptați usor.</p>
+   
+</div>
+
+

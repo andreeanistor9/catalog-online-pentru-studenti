@@ -1,0 +1,96 @@
+﻿@page
+@model WebApp1.Pages.SolicitaAdeverintaModel
+@{
+}
+<form method="post" onsubmit="formValidate()">
+	<div class="row mb-3">
+		<label class="col-sm-3 col-form-label"> Nume:  </label><br />
+		<div class="col-sm-6">
+			<input id="nume" class="form-control" />
+		</div>
+	</div>
+	<div class="row mb-3">
+		<label class="col-sm-3 col-form-label"> Prenume:  </label><br />
+		<div class="col-sm-6">
+			<input id="prenume" class="form-control" />
+		</div>
+	</div>
+	<div class="row mb-3">
+		<label class="col-sm-3 col-form-label"> Sunteti inrolat in anul curent?:   </label><br />
+		<div class="col-sm-6">
+			<select id="optiuni" class="form-select">
+				<option value=""></option>
+				<option value="0">NU</option>
+				<option value="1">DA</option>
+			</select><br />
+		</div>
+	</div>
+	<div class="row mb-3">
+		<label class="col-sm-3 col-form-label"> Selectati tipul de adeverinta de student:   </label><br />
+		<div class="col-sm-6">
+			<select id="adeverinta" class="form-select">
+				<option value=""></option>
+				<option value="0">Pentru angajare</option>
+				<option value="1">Medicala</option>
+			</select><br />
+		</div>
+	</div>
+</form>
+<button class="btn btn-primary" onclick="formValidate()">Trimite</button>
+<a id="printAdeverinta" class="btn btn-primary">Solicita</a>
+<button class="btn btn-primary" onclick="resetForm()">Reseteaza</button>
+<div id="continutPDF" style="text-align:center">
+<h2 id="titlu"></h2>
+<p id="Adeverinta" class="h4"></p>
+</div>
+
+@section scripts{
+	<script>
+	function resetForm(){
+	document.getElementById("nume").value="";
+	document.getElementById("prenume").value="";
+	document.getElementById("optiuni").value="";
+	document.getElementById("adeverinta").value="";	
+	document.getElementById("continutPDF").innerHTML = "";
+	
+	}
+</script>
+<script>
+
+	function formValidate(){
+	
+	let nume = document.getElementById("nume");
+	let prenume = document.getElementById("prenume");
+	let optiune = document.getElementById("optiuni");
+	let adeverinta = document.getElementById("adeverinta");
+	let numePrenume = nume.value + " " + prenume.value;
+	document.getElementById("titlu").innerHTML = "Adeverinta de student";
+	if(optiune.value == 1 && adeverinta.value == 0){
+		text = "Studentul " + numePrenume + " este inrolat in anul universitar curent la Facultatea de Matematica si Informatica, Universitatea din Bucuresti. Aceasta adeverinta este eliberata pentru a servi la angajare."
+		
+	}
+	if(optiune.value == 1 && adeverinta.value == 1){
+		text = "Studentul " + numePrenume + " este inrolat in anul universitar curent la Facultatea de Matematica si Informatica, Universitatea din Bucuresti. Aceasta adeverinta este eliberata pentru a servi medicului de familie."
+		
+	}
+	if(optiune.value == 0){
+		alert("Trebuie sa fiti inrolat in anul curent pentru a va putea elibera adeverinta de student!");
+		
+	}
+	document.getElementById("Adeverinta").innerHTML = text;
+	
+	}
+</script>
+<script>
+	 $("#printAdeverinta").click(function() {
+            var element = document.getElementById('continutPDF');
+		
+            html2pdf().from(element).set({
+                margin: [30,10,5,10],
+                pagebreak:{avoid: 'tr'},
+                jsPDF:{orientation:'landscape', unit:'pt', format:'letter', compressPDF:true}
+            }).save()
+        })
+</script>
+
+}

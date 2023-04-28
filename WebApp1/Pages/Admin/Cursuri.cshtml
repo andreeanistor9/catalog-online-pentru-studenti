@@ -1,0 +1,51 @@
+﻿@page
+@using WebApp1.Models
+@model WebApp1.Pages.Admin.CursuriModel
+@{
+	ViewData["Title"] = "Cursuri";
+}
+
+<a class="btn btn-secondary" asp-area="" asp-page="/Admin/AdaugaCursuri">Adauga cursuri</a>
+                          
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Cursuri[0].Id)
+            </th>
+            <th>
+                Curs
+            </th>
+            <th>
+                An de studiu
+            </th>
+            <th>
+                Profesor
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach(Curs curs in Model.Cursuri)
+{
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => curs.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => curs.Denumire)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => curs.An)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => curs.Profesor.UserName)
+            </td>
+            <td>
+                <a class="btn btn-secondary btn-sm" asp-page="./EditeazaCurs" asp-route-cursId="@curs.Id">Modifica</a> 
+                <a class="btn btn-secondary btn-sm" asp-page="./Cursuri" asp-page-handler="delete" asp-route-cursId="@curs.Id" onclick="return confirm('Sigur vrei sa stergi cursul?')">Sterge</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

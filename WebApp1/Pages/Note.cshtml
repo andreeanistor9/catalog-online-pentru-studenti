@@ -1,0 +1,124 @@
+﻿@page
+@using WebApp1.Models
+@model WebApp1.Pages.NoteModel
+@{
+    ViewData["Title"] = "Note";
+    int? suma1 = 0,suma2 = 0,suma3 = 0,suma4 = 0;
+    int? count1 = 0, count2 = 0, count3 = 0, count4 = 0;
+    double? avg1 = 0, avg2 = 0, avg3 = 0, avg4 = 0;
+}
+@if(User.IsInRole("student")){
+    <div style="display:inline-block">
+        <button class="btn btn-secondary" onclick="myFunction()">Calculeaza media pe fiecare an</button>
+    <button class="btn btn-secondary" onclick="myFunction2()">Reseteaza</button>
+    </div>
+
+    <p id="an1" class="h6"></p>
+    <p id="an2" class="h6"></p>
+    <p id="an3" class="h6"></p>
+    <p id="an4" class="h6"></p>
+    
+}
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>
+                Curs
+            </th>
+            <th>
+                Nota
+            </th>
+            @if(User.IsInRole("profesor")){
+                <th>
+                Student
+            </th>
+            <th></th>
+            }
+           
+        </tr>
+    </thead>
+    <tbody>
+@foreach(Nota nota in Model.Note)
+{
+   
+            <tr>
+                @if (User.Identity.Name.Equals(@nota.Student.UserName) || User.IsInRole("profesor"))
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => nota.Curs.Denumire)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => nota.Punctaj)
+                    </td>
+                     @if(User.IsInRole("profesor"))
+                    {
+                        <td>
+                        @Html.DisplayFor(modelItem => nota.Student.UserName)
+                    </td> 
+                    <td class="d-grid gap-2">
+	                    <a class="btn btn-secondary" asp-route-notaId="@nota.NotaId" asp-page="/EditeazaNota">Adauga Nota</a>
+                    </td>
+                     }
+    
+                }
+            </tr>
+}
+    </tbody>
+</table>
+
+
+@foreach(Nota nota in Model.Note) {
+    @if (User.Identity.Name.Equals(@nota.Student.UserName))
+    {
+        @if(@nota.Curs.An == 1)
+        {
+         <div style="display:none">
+           @(suma1 = @suma1 + @nota.Punctaj)
+           @(@count1++)
+          </div>
+        }
+        @if(@nota.Curs.An == 2)
+        {
+         <div style="display:none">
+           @(suma2 = @suma2 + @nota.Punctaj)
+           @(@count2++)
+          </div>
+        }
+        @if(@nota.Curs.An == 3)
+        {
+         <div style="display:none">
+           @(suma3 = @suma3 + @nota.Punctaj)
+           @(@count3++)
+          </div>
+        }
+        @if(@nota.Curs.An == 4)
+        {
+         <div style="display:none">
+           @(suma4 = @suma4 + @nota.Punctaj)
+           @(@count4++)
+          </div>
+        }
+    }
+    
+}
+
+
+
+<script>
+function myFunction() {
+    document.getElementById("an1").innerHTML = "Media pe anul 1 este: " + @(@avg1=1.0*@suma1/@count1);
+    document.getElementById("an2").innerHTML = "Media pe anul 2 este: " + @(@avg2=1.0*@suma2/@count2);
+    document.getElementById("an3").innerHTML = "Media pe anul 3 este: " + @(@avg3=1.0*@suma3/@count3);
+    document.getElementById("an4").innerHTML = "Media pe anul 4 este: " + @(@avg4=1.0*@suma4/@count4);
+}
+function myFunction2() {
+    document.getElementById("an1").innerHTML = "";
+    document.getElementById("an2").innerHTML = "";
+    document.getElementById("an3").innerHTML = "";
+    document.getElementById("an4").innerHTML = "";
+}
+</script>
+
+
+
+

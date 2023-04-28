@@ -1,0 +1,91 @@
+﻿@page
+@using WebApp1.Models
+@model WebApp1.Pages.CursuriModel
+@{
+	ViewData["Title"] = "Cursuri";
+}
+@if (User.IsInRole("student"))
+{
+	<form class="row g-3">
+		<div>
+		<input class ="form-control" type="text" asp-for="SearchString" placeholder="Scrieti numele cursului sau al profesorului dorit..." />	
+		</div>
+		<div>
+		<a  class="btn btn-secondary" asp-page="./Cursuri" asp-route-sortOrder="@Model.NameSortAsc">
+			Ordoneaza crescator
+		</a>
+		<a  class="btn btn-secondary" asp-page="./Cursuri" asp-route-sortOrder="@Model.NameSortDesc">
+			Ordoneaza descrescator
+		</a>
+		</div>
+	</form>
+	<br>
+
+	<table class="table table-hover">
+		<thead>
+			<tr>
+
+				<th>
+					Curs
+				</th>
+				<th>
+					An de studiu
+				</th>
+				
+				
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (Curs curs in Model.Courses)
+			{
+				<tr >
+					<td>
+						<a class="link-primary" asp-page="/Curs" asp-route-cursId="@curs.Id">
+							<b>@curs.Denumire </b>
+						</a>
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => curs.An)
+					</td>
+
+				</tr>
+			}
+		</tbody>
+	</table>
+}
+@if (User.IsInRole("profesor"))
+{
+	<table class="table table-hover">
+		<thead>
+			<tr>
+				<th>
+					Curs
+				</th>
+				<th>
+					An
+				</th>
+
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (Curs curs in Model.cursuri)
+			{
+				@if (User.Identity.Name.Equals(@curs.Profesor.UserName))
+				{
+					<tr>
+						<td>
+							<a style="text-decoration:none" asp-page="/Curs" asp-route-cursId="@curs.Id">
+								<b>@curs.Denumire </b>
+							</a>
+						</td>
+						<td>
+							@Html.DisplayFor(modelItem => curs.An)
+						</td>
+					</tr>
+				}
+			}
+		</tbody>
+	</table>
+
+}
+

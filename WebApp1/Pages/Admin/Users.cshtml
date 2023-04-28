@@ -1,0 +1,45 @@
+﻿@page
+@model WebApp1.Pages.Admin.UsersModel
+@{
+    ViewData["Title"] = "Utilizatori";
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Utilizatori[0].Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Utilizatori[0].UserName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Utilizatori[0].Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Utilizatori[0].PhoneNumber)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach(IdentityUser user in Model.Utilizatori)
+{
+        <tr>
+            <td> 
+               <a asp> @Html.DisplayFor(modelItem => user.Id) </a>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => user.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => user.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => user.PhoneNumber)
+            </td>
+            
+        </tr>
+}
+    </tbody>
+</table>

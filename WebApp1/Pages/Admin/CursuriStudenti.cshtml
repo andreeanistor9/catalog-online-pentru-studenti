@@ -1,0 +1,43 @@
+﻿@page
+@using WebApp1.Models;
+@model WebApp1.Pages.Admin.CursuriStudentiModel
+@{
+    ViewData["Title"] = "Cursuri studenti";
+}
+<a class="btn btn-secondary" asp-area="" asp-page="/Admin/AdaugaStudentiLaCurs">Adauga studenti la cursuri</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Student
+            </th>
+            <th>
+                Curs
+            </th>
+            <th>
+                An de studiu
+            </th>
+            
+           
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach(Nota nota in Model.Note)
+{
+            <tr>
+               
+                    <td>
+                        @Html.DisplayFor(modelItem => nota.Student.UserName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => nota.Curs.Denumire)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => nota.Curs.An)
+                    </td>
+
+            </tr>
+}
+    </tbody>
+</table>

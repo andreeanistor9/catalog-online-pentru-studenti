@@ -1,0 +1,42 @@
+﻿@page
+@model WebApp1.Pages.EditeazaNota
+@{
+	ViewData["Title"]="Adauga studentii la curs";
+}
+
+<form method="post">
+	<div class="row mb-3">
+		<label class="col-sm-1 col-form-label"> Punctaj:  </label><br />
+		<div class="col-sm-4">
+			<input class="form-control" asp-for="@Model.Nota.Punctaj" min = "4" max="10"/>
+		</div>
+	</div>
+	<div class="row mb-3">
+		<label class="col-sm-1 col-form-label"> Student:  </label><br />
+		<div class="col-sm-4">
+		<select id="select1" class="form-select" asp-for="@Model.Nota.StudentId" asp-items="Model.student"></select><br />
+		</div>
+	</div>
+	<div class="row mb-3">
+		<label class="col-sm-1 col-form-label"> Curs:  </label><br />
+		<div class="col-sm-4">
+		<select id="select2" class="form-select selectare" asp-for="@Model.Nota.CursId" asp-items="Model.curs"></select><br />
+		</div>
+	</div>
+	<div>
+		<input class="btn btn-primary" type="submit" value="Adauga Nota"/>
+	</div>
+</form>
+
+<script>
+	const selectDD1 = document.getElementById("select1");
+	const selectDD2 = document.getElementById("select2");
+	const selectedNode1 = selectDD1.value;
+	const selectedNode2 = selectDD2.value;
+	selectDD1.onchange = (e) => {
+		selectDD1.value = selectedNode1;
+	}
+	selectDD2.onchange = (e) => {
+		selectDD2.value = selectedNode2;
+	}
+</script>
