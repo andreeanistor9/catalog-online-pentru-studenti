@@ -1,4 +1,4 @@
-# University-Online-Register
+# catalog-online-pentru-studenti
 
 Este o aplicatie dezvolatata cu tehnologiile ASP.NET Core, utilizand elemente de BootStrap pentru design, baza de date este construita in Microsoft SQL Server si aplicatia este construita folosind Razor Pages.
 
